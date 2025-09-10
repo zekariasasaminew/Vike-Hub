@@ -14,7 +14,6 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 
-import { useAuth } from "../../contexts/AuthContext";
 import { useApp } from "../../contexts/AppContext";
 import { theme, commonStyles } from "../../styles/theme";
 import { announcementApi } from "../../supabase/api";
@@ -22,7 +21,6 @@ import { announcementApi } from "../../supabase/api";
 const { width } = Dimensions.get("window");
 
 const HomeScreen = ({ navigation }) => {
-  const { user, profile } = useAuth();
   // const { theme: themeApp } = useApp();
 
   const [announcements, setAnnouncements] = useState([]);
@@ -62,14 +60,6 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const handleCreateAnnouncement = () => {
-    if (!profile?.is_admin) {
-      Alert.alert(
-        "Access Restricted",
-        "Only verified Office of Student Life accounts can post announcements.",
-        [{ text: "OK" }]
-      );
-      return;
-    }
     navigation.navigate("CreateAnnouncement", {
       onRefresh: loadAnnouncements,
     });
@@ -172,11 +162,7 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.mainHeader}>
         <View style={styles.welcomeContainer}>
           <Text style={[styles.welcomeText, { color: "#0F172A" }]}>
-            Welcome,{" "}
-            {profile?.name?.split(" ")[0] ||
-              user?.user_metadata?.name?.split(" ")[0] ||
-              "Student"}{" "}
-            👋
+            Welcome, Student 👋
           </Text>
           <Text style={[styles.subtitleText, { color: "#475569" }]}>
             {new Date().toLocaleDateString("en-US", {
@@ -655,20 +641,18 @@ const HomeScreen = ({ navigation }) => {
           <Text style={[styles.sectionTitle, { color: "#0F172A" }]}>
             Latest Announcements
           </Text>
-          {profile?.is_admin && (
-            <TouchableOpacity
-              style={[
-                styles.addButton,
-                {
-                  backgroundColor: "#0F172A",
-                  shadowColor: theme.colors.shadow,
-                },
-              ]}
-              onPress={handleCreateAnnouncement}
-            >
-              <MaterialIcons name="add" size={20} color="white" />
-            </TouchableOpacity>
-          )}
+          <TouchableOpacity
+            style={[
+              styles.addButton,
+              {
+                backgroundColor: "#0F172A",
+                shadowColor: theme.colors.shadow,
+              },
+            ]}
+            onPress={handleCreateAnnouncement}
+          >
+            <MaterialIcons name="add" size={20} color="white" />
+          </TouchableOpacity>
         </View>
       </View>
     </View>

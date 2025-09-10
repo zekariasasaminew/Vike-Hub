@@ -1,15 +1,35 @@
 {
   "name": "augie-central",
   "version": "1.0.0",
+  "description": "Your gateway to student life at Augustana College",
   "main": "index.js",
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "test": "echo \"No tests yet\" && exit 0"
+    "test": "echo \"No tests yet\" && exit 0",
+    "build:development": "eas build --profile development",
+    "build:preview": "eas build --profile preview",
+    "build:production": "eas build --profile production",
+    "build:ios": "eas build --platform ios --profile production",
+    "build:android": "eas build --platform android --profile production",
+    "submit:ios": "eas submit --platform ios",
+    "submit:android": "eas submit --platform android",
+    "submit:all": "eas submit --platform all"
   },
+  "keywords": [
+    "augustana",
+    "college",
+    "student",
+    "campus",
+    "events",
+    "organizations"
+  ],
+  "author": "Augustana College Office of Student Life",
+  "license": "MIT",
   "dependencies": {
+    "@expo/metro-runtime": "~5.0.4",
     "@expo/vector-icons": "^15.0.0",
     "@react-native-async-storage/async-storage": "^2.1.2",
     "@react-native-community/datetimepicker": "^8.4.4",
@@ -19,17 +39,17 @@
     "@react-navigation/stack": "^7.4.8",
     "@supabase/supabase-js": "^2.56.0",
     "expo": "~53.0.22",
-    "expo-secure-store": "^14.2.3",
+    "expo-crypto": "^14.1.5",
+    "expo-dev-client": "~5.2.4",
     "expo-status-bar": "~2.2.3",
     "expo-system-ui": "^5.0.10",
-    "react": "19.1.1",
-    "react-dom": "19.1.1",
-    "react-native": "0.81.1",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-native": "0.79.6",
     "react-native-safe-area-context": "^5.6.1",
     "react-native-screens": "^4.16.0",
     "react-native-url-polyfill": "^2.0.0",
-    "react-native-web": "^0.21.1",
-    "@expo/metro-runtime": "~5.0.4"
+    "react-native-web": "^0.21.1"
   },
   "devDependencies": {
     "@babel/core": "^7.28.3"

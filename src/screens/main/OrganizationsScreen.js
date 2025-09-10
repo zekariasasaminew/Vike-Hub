@@ -14,7 +14,6 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 
-import { useAuth } from "../../contexts/AuthContext";
 import { useApp } from "../../contexts/AppContext";
 import { theme } from "../../styles/theme";
 
@@ -24,7 +23,6 @@ import { organizationCategories } from "../../data/mockData";
 const { width } = Dimensions.get("window");
 
 const OrganizationsScreen = ({ navigation }) => {
-  const { user, profile } = useAuth();
   // const { theme: themeApp } = useApp();
 
   const [selectedCategory, setSelectedCategory] = useState("all");

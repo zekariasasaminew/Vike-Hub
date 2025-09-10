@@ -15,7 +15,6 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-import { useAuth } from "../../contexts/AuthContext";
 import { useApp } from "../../contexts/AppContext";
 import { theme, commonStyles } from "../../styles/theme";
 import { eventApi, organizationApi } from "../../supabase/api";
@@ -23,7 +22,6 @@ import { eventApi, organizationApi } from "../../supabase/api";
 const { width } = Dimensions.get("window");
 
 const CreateEventScreen = ({ navigation, route }) => {
-  const { user, profile } = useAuth();
   // const { theme: themeApp } = useApp();
 
   const [title, setTitle] = useState("");

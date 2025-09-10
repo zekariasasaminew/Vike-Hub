@@ -2,13 +2,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialIcons } from "@expo/vector-icons";
-import { View, ActivityIndicator } from "react-native";
-
-import { useAuth } from "../contexts/AuthContext";
-
-// Auth Screens
-import SignInScreen from "../screens/auth/SignInScreen";
-import SignUpScreen from "../screens/auth/SignUpScreen";
 
 // Main App Screens
 import HomeScreen from "../screens/main/HomeScreen";
@@ -28,25 +21,7 @@ import CreateEventScreen from "../screens/admin/CreateEventScreen";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-// Auth Stack Navigator - Minimal styling
-const AuthStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="SignIn"
-        component={SignInScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="SignUp"
-        component={SignUpScreen}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
-  );
-};
-
-// Main Tab Navigator - Minimal styling
+// Main Tab Navigator
 const MainTabs = () => {
   return (
     <Tab.Navigator
@@ -110,7 +85,6 @@ const MainTabs = () => {
   );
 };
 
-// Main App Stack Navigator - Minimal styling
 const AppStack = () => {
   return (
     <Stack.Navigator>
@@ -163,38 +137,12 @@ const AppStack = () => {
   );
 };
 
-// Navigation wrapper with context check
-const NavigationWrapper = () => {
-  const { user, loading } = useAuth();
-
-  // If context is not available yet, show loading
-  if (loading) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "#1B365D",
-        }}
-      >
-        <ActivityIndicator size="large" color="#F4B942" />
-      </View>
-    );
-  }
-
-  const isAuthenticated = !!user;
-
+const AppNavigation = () => {
   return (
     <NavigationContainer>
-      {isAuthenticated ? <AppStack /> : <AuthStack />}
+      <AppStack />
     </NavigationContainer>
   );
-};
-
-// Root Navigator
-const AppNavigation = () => {
-  return <NavigationWrapper />;
 };
 
 export default AppNavigation;
