@@ -1,20 +1,54 @@
 {
   "expo": {
-    "name": "augie-central",
+    "name": "Augie Central",
     "slug": "augie-central",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "scheme": "com.augie.central",
+    "description": "Your gateway to student life at Augustana College",
+    "privacy": "unlisted",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.augie.central"
+      "bundleIdentifier": "com.augie.central",
+      "buildNumber": "1",
+      "infoPlist": {
+        "CFBundleDisplayName": "Augie Central",
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLName": "com.augie.central",
+            "CFBundleURLSchemes": [
+              "com.augie.central"
+            ]
+          },
+          {
+            "CFBundleURLName": "com.augie.central",
+            "CFBundleURLSchemes": [
+              "com.augie.central"
+            ]
+          }
+        ],
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": false,
+          "NSExceptionDomains": {
+            "supabase.co": {
+              "NSExceptionAllowsInsecureHTTPLoads": false,
+              "NSExceptionMinimumTLSVersion": "1.2"
+            }
+          }
+        },
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -22,10 +56,40 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.augie.central",
-      "edgeToEdgeEnabled": true
+      "versionCode": 1,
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "android.permission.INTERNET"
+      ],
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "com.augie.central"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ]
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7c04dc63-491b-41ba-a1c2-aa7ddcaba4de"
+      }
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "runtimeVersion": "exposdk:53.0.0",
+    "owner": "zekariasasaminew"
   }
 }

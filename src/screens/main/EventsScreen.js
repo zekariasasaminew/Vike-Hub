@@ -15,7 +15,6 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 
-import { useAuth } from "../../contexts/AuthContext";
 import { useApp } from "../../contexts/AppContext";
 import { theme } from "../../styles/theme";
 
@@ -24,7 +23,6 @@ import { eventApi } from "../../supabase/api";
 const { width } = Dimensions.get("window");
 
 const EventsScreen = ({ navigation }) => {
-  const { user, profile } = useAuth();
   const { theme: themeApp, savedEvents, saveEvent, removeEvent } = useApp();
 
   const [events, setEvents] = useState([]);

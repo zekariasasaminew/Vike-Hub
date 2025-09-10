@@ -12,25 +12,16 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 
-import { useAuth } from "../../contexts/AuthContext";
 import { useApp } from "../../contexts/AppContext";
 import { theme } from "../../styles/theme";
 
 const ProfileScreen = ({ navigation }) => {
-  const { user, profile, signOut } = useAuth();
   const {
     theme: themeApp,
     toggleTheme,
     notifications,
     updateNotifications,
   } = useApp();
-
-  const handleLogout = () => {
-    Alert.alert("Sign Out", "Are you sure you want to sign out?", [
-      { text: "Cancel", style: "cancel" },
-      { text: "Sign Out", style: "destructive", onPress: signOut },
-    ]);
-  };
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: "#FFFFFF" }]}>
@@ -40,15 +31,11 @@ const ProfileScreen = ({ navigation }) => {
         {/* Profile Header */}
         <View style={styles.profileHeader}>
           <View style={[styles.avatar, { backgroundColor: "#0F172A" }]}>
-            <Text style={styles.avatarText}>
-              {(profile?.name || user?.user_metadata?.name)?.charAt(0) || "U"}
-            </Text>
+            <Text style={styles.avatarText}>S</Text>
           </View>
-          <Text style={[styles.name, { color: "#0F172A" }]}>
-            {profile?.name || user?.user_metadata?.name || "Student Name"}
-          </Text>
+          <Text style={[styles.name, { color: "#0F172A" }]}>Student Name</Text>
           <Text style={[styles.email, { color: "#475569" }]}>
-            {profile?.email || user?.email || "student@augustana.edu"}
+            student@augustana.edu
           </Text>
         </View>
 
@@ -106,18 +93,6 @@ const ProfileScreen = ({ navigation }) => {
             <MaterialIcons name="chevron-right" size={20} color={"#475569"} />
           </TouchableOpacity>
         </View>
-
-        {/* Sign Out Button */}
-        <TouchableOpacity
-          style={[
-            styles.signOutButton,
-            { backgroundColor: theme.colors.error },
-          ]}
-          onPress={handleLogout}
-        >
-          <MaterialIcons name="logout" size={20} color="white" />
-          <Text style={styles.signOutText}>Sign Out</Text>
-        </TouchableOpacity>
 
         {/* Footer */}
         <View style={styles.footer}>

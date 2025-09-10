@@ -3,8 +3,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Initial state
 const initialState = {
-  isAuthenticated: false,
-  user: null,
   theme: "light",
   savedEvents: [],
   notifications: {
@@ -12,13 +10,11 @@ const initialState = {
     events: true,
     organizations: true,
   },
-  isLoading: true,
+  isLoading: false,
 };
 
 // Action types
 const ActionTypes = {
-  LOGIN: "LOGIN",
-  LOGOUT: "LOGOUT",
   TOGGLE_THEME: "TOGGLE_THEME",
   SAVE_EVENT: "SAVE_EVENT",
   REMOVE_EVENT: "REMOVE_EVENT",
@@ -29,19 +25,6 @@ const ActionTypes = {
 // Reducer
 const appReducer = (state, action) => {
   switch (action.type) {
-    case ActionTypes.LOGIN:
-      return {
-        ...state,
-        isAuthenticated: true,
-        user: action.payload,
-      };
-    case ActionTypes.LOGOUT:
-      return {
-        ...state,
-        isAuthenticated: false,
-        user: null,
-        savedEvents: [],
-      };
     case ActionTypes.TOGGLE_THEME:
       return {
         ...state,
@@ -98,7 +81,6 @@ export const AppProvider = ({ children }) => {
       const theme = await AsyncStorage.getItem("theme");
       const notifications = await AsyncStorage.getItem("notifications");
       const savedEvents = await AsyncStorage.getItem("savedEvents");
-      const userData = await AsyncStorage.getItem("userData");
 
       if (theme && theme === "dark") {
         dispatch({ type: ActionTypes.TOGGLE_THEME });
@@ -111,12 +93,6 @@ export const AppProvider = ({ children }) => {
       }
       if (savedEvents) {
         // Load saved events - implement if needed
-      }
-      if (userData) {
-        dispatch({
-          type: ActionTypes.LOGIN,
-          payload: JSON.parse(userData),
-        });
       }
     } catch (error) {
       console.error("Error loading persisted data:", error);
@@ -137,24 +113,8 @@ export const AppProvider = ({ children }) => {
         "savedEvents",
         JSON.stringify(state.savedEvents)
       );
-      if (state.user) {
-        await AsyncStorage.setItem("userData", JSON.stringify(state.user));
-      }
     } catch (error) {
       console.error("Error saving data:", error);
-    }
-  };
-
-  const login = (userData) => {
-    dispatch({ type: ActionTypes.LOGIN, payload: userData });
-  };
-
-  const logout = async () => {
-    try {
-      await AsyncStorage.multiRemove(["userData", "savedEvents"]);
-      dispatch({ type: ActionTypes.LOGOUT });
-    } catch (error) {
-      console.error("Error during logout:", error);
     }
   };
 
@@ -176,8 +136,6 @@ export const AppProvider = ({ children }) => {
 
   const value = {
     ...state,
-    login,
-    logout,
     toggleTheme,
     saveEvent,
     removeEvent,
@@ -193,8 +151,6 @@ export const useApp = () => {
   if (!context) {
     // Return a default state if context is not available
     return {
-      isAuthenticated: false,
-      user: null,
       theme: "light",
       savedEvents: [],
       notifications: {
@@ -202,9 +158,7 @@ export const useApp = () => {
         events: true,
         organizations: true,
       },
-      isLoading: true,
-      login: () => {},
-      logout: () => {},
+      isLoading: false,
       toggleTheme: () => {},
       saveEvent: () => {},
       removeEvent: () => {},

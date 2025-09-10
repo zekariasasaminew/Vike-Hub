@@ -13,7 +13,6 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
-import { useAuth } from "../../contexts/AuthContext";
 import { useApp } from "../../contexts/AppContext";
 import { theme } from "../../styles/theme";
 
@@ -21,7 +20,6 @@ const { width } = Dimensions.get("window");
 
 const AnnouncementDetailScreen = ({ route, navigation }) => {
   const { announcement } = route.params;
-  const { user, profile } = useAuth();
   // const { theme: themeApp } = useApp();
 
   const formatDate = (date) => {

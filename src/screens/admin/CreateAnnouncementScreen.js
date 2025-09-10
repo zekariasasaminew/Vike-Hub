@@ -17,7 +17,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-import { useAuth } from "../../contexts/AuthContext";
 import { useApp } from "../../contexts/AppContext";
 import { theme } from "../../styles/theme";
 
@@ -26,8 +25,7 @@ import { announcementApi } from "../../supabase/api";
 const { width } = Dimensions.get("window");
 
 const CreateAnnouncementScreen = ({ navigation, route }) => {
-  console.log(theme);
-  const { user, profile } = useAuth();
+  // Theme configured
   // const { theme: themeApp } = useApp();
 
   const [formData, setFormData] = useState({

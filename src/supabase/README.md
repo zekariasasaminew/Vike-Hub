@@ -31,15 +31,6 @@ npm install @supabase/supabase-js react-native-url-polyfill
 3. Copy and paste the contents of `schema.sql`
 4. Run the SQL to create all tables, policies, and triggers
 
-### 4. Authentication Setup
-
-In your Supabase dashboard:
-
-1. Go to Authentication → Settings
-2. Enable email authentication
-3. Configure any additional providers if needed
-4. Set up email templates for password reset, etc.
-
 ## 📁 File Structure
 
 ```
@@ -51,13 +42,6 @@ src/supabase/
 ```
 
 ## 🔑 Key Features
-
-### Authentication
-
-- Email/password signup and signin
-- Automatic profile creation on signup
-- Secure token storage using Expo SecureStore
-- Password reset functionality
 
 ### Row Level Security (RLS)
 
@@ -102,14 +86,7 @@ const { data, error } = await authApi.signUp(
   "John Doe"
 );
 
-// Sign in
-const { data, error } = await authApi.signIn(
-  "user@augustana.edu",
-  "password123"
-);
-
-// Sign out
-await authApi.signOut();
+// Authentication removed - app now works without login
 ```
 
 ### Organizations
